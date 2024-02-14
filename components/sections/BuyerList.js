@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { IconAlertTriangle, IconPlus } from "@tabler/icons-react"
-
+import { showNotification } from '@mantine/notifications';
 import {
   Box,
   Heading,
@@ -49,7 +49,7 @@ import {
   PopoverCloseButton,
   PopoverAnchor,
 } from '@chakra-ui/react';
-import useAppContext from '../../providers/AppProvider';
+import { useAppContext } from "../../providers/AppProvider";
 import { Link } from "react-router-dom";
 import Select from 'react-select';
 import { uploadToIPFS } from "~/Infura";
@@ -98,15 +98,15 @@ function ProprtyOwner(props) {
     </HStack>
   );
 }
-
-async function BuyerList({ isSignedIn, wallet, contractId }) {
+ function BuyerList({ isSignedIn, wallet, contractId}) {
 
   const { isOpen: listingModalOpen, onOpen: openListingModal, onClose: closeListingModal } = useDisclosure();
   const { isOpen: transferModalOpen, onOpen: openTransferModal, onClose: closeTransferModal } = useDisclosure();
+  const { address, connection, handleConnetWalletBtnClick, contract } = useAppContext();
   const [currentModal, setCurrentModal] = React.useState(null);
-  const { account, updateAccount, contract } = useAppContext();
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
+  
 
   const openModal = (modal) => {
     setCurrentModal(modal);
@@ -149,43 +149,7 @@ async function BuyerList({ isSignedIn, wallet, contractId }) {
   // property_id :i32, 
   // from_account_str : String, 
   // to_account_str: String
-  if (contract){
-    const callData = [formData.title,
-      formData.description,
-      formData.status,
-      formData.price,
-      formData.area,
-      formData.name,
-      formData.username,
-      formData.email,
-      formData.phone,
-      formData.address,
-      formData.city,
-      formData.state,
-      formData.county,
-      formData.lat,
-      formData.long
-    ]
-    const mycall = contract.populate("add_property", callData)
-    try {
-      const res = await contract.add_property(mycall.calldata)
-      showNotification({
-        title: "Success!",
-        message: "Property successfully",
-        color: "green",
-        icon: <IconAlertTriangle />
-      })
-    } catch (e) {
-      showNotification({
-        title: "Failed!",
-        message: "Could not add package",
-        color: "red",
-        icon: <IconAlertTriangle />
-      })
-    
 
-    }
-  }
 
   
 
@@ -277,40 +241,80 @@ async function BuyerList({ isSignedIn, wallet, contractId }) {
 
     console.log("lat", lat);
 
+    if (contract){
+      console.log(contract)
+      const callData = [
+        is_available,
+        formData.title,
+        formData.description,
+        formData.status,
+        formData.price,
+        formData.area,
+        formData.name,
+        formData.username,
+        formData.email,
+        formData.phone,
+        formData.address,
+        formData.city,
+        formData.state,
+        formData.county,
+        formData.lat,
+        formData.long
+      ]
+      const mycall = contract.populate("add_property", callData)
+      try {
+        const res = await contract.add_property(mycall.calldata)
+        showNotification({
+          title: "Success!",
+          message: "Property successfully",
+          color: "green",
+          icon: <IconAlertTriangle />
+        })
+      } catch (e) {
+        showNotification({
+          title: "Failed!",
+          message: "Could not add package",
+          color: "red",
+          icon: <IconAlertTriangle />
+        })
+      
+  
+      }
+    }
 
 
     // const jsonData = JSON.stringify(updatedFormData);
 
-    wallet
-      .callMethod({
-        method: "add_property",
-        args: {
-          is_available: is_available,
-          title: title,
-          description: description,
-          status: status,
-          price: price,
-          area: area,
-          name: name,
-          username: username,
-          email: email,
-          phone: phone,
-          address: address,
-          city: city,
-          state: state,
-          county: county,
-          lat: lat,
-          long: long,
-        },
-        contractId: contractId
-      })
-      .then(async () => {
-        return getProperties();
-      })
-      .then(setProperties)
-      .finally(() => {
-        setUiPleaseWait(false);
-      });
+    // wallet
+    //   .callMethod({
+    //     method: "add_property",
+    //     args: {
+    //       is_available: is_available,
+    //       title: title,
+    //       description: description,
+    //       status: status,
+    //       price: price,
+    //       area: area,
+    //       name: name,
+    //       username: username,
+    //       email: email,
+    //       phone: phone,
+    //       address: address,
+    //       city: city,
+    //       state: state,
+    //       county: county,
+    //       lat: lat,
+    //       long: long,
+    //     },
+    //     contractId: contractId
+    //   })
+    //   .then(async () => {
+    //     return getProperties();
+    //   })
+    //   .then(setProperties)
+    //   .finally(() => {
+    //     setUiPleaseWait(false);
+    //   });
 
 
 

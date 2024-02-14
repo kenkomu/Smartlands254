@@ -35,19 +35,22 @@ window.onload = async () => {
   window.walletisSignedIn = isSignedIn
 
   root.render(
-    <AppProvider>
+   
       
     
     <BrowserRouter>
-    <ChakraProvider theme={customTheme}>
-      <App
-        isSignedIn={isSignedIn}
-        contractId={CONTRACT_ADDRESS}
-        wallet={wallet}
-      />
-    </ChakraProvider>
+      <AppProvider>
+          <ChakraProvider theme={customTheme}>
+            <App
+              isSignedIn={isSignedIn}
+              contractId={CONTRACT_ADDRESS}
+              wallet={wallet}
+            />
+          </ChakraProvider>
+      </AppProvider>
+      
     </BrowserRouter>
-    </AppProvider>
+   
 
   );
 };

@@ -24,6 +24,7 @@
     "@chakra-ui/react": "^2.8.1",
     "@mantine/core": "^7.5.2",
     "@mantine/modals": "^7.5.2",
+    "@mantine/notifications": "^7.5.2",
     "@near-wallet-selector/core": "^7.9.3",
     "@near-wallet-selector/ledger": "^7.0.0",
     "@near-wallet-selector/math-wallet": "^7.0.0",

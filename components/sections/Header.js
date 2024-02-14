@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import Logo from "../ui/Logo";
 import { useAppContext } from "../../providers/AppProvider";
-import { Connector, useConnect, useAccount } from "@starknet-react/core";
+
 
 
 const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
@@ -122,6 +122,13 @@ const Header = ({ isSignedIn, wallet, ...props }) => {
           <MenuItem to="/aboutus"> Abou Us</MenuItem>
 
           <MenuItem to="/contacts"> Contact </MenuItem>
+          {
+              connection ?
+                    <Button radius={"xl"} onClick={handleConnetWalletBtnClick}>LOGOUT</Button>
+                    :
+                    <Button radius={"xl"} color='green' onClick={handleConnetWalletBtnClick}>LOGIN</Button>
+                        
+                               }
 
           {isSignedIn && (
               <MenuItem to="/profile">Profile</MenuItem>
@@ -129,12 +136,7 @@ const Header = ({ isSignedIn, wallet, ...props }) => {
 
           
           <MenuItem isLast>
-          {
-                                    connection ?
-                                        <Button radius={"xl"} onClick={handleConnetWalletBtnClick}>LOGOUT</Button>
-                                        :
-                                        <Button radius={"xl"} color='green' onClick={handleConnetWalletBtnClick}>LOGIN</Button>
-                                }
+ 
                           {/* {
                 connectors.map((connector) => (
                     <Wallet
