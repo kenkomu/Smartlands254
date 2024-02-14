@@ -11,6 +11,7 @@ import { ItemsListed } from "./near-interface";
 import { BrowserRouter } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import customTheme from "./utils/theme";
+import AppProvider from "./providers/AppProvider";
 
 const CONTRACT_ADDRESS = "propt.testnet";
 
@@ -34,6 +35,8 @@ window.onload = async () => {
   window.walletisSignedIn = isSignedIn
 
   root.render(
+    <AppProvider>
+      
     
     <BrowserRouter>
     <ChakraProvider theme={customTheme}>
@@ -44,5 +47,7 @@ window.onload = async () => {
       />
     </ChakraProvider>
     </BrowserRouter>
+    </AppProvider>
+
   );
 };

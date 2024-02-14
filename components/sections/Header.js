@@ -10,6 +10,9 @@ import {
 
 } from "@chakra-ui/react";
 import Logo from "../ui/Logo";
+import { useAppContext } from "../../providers/AppProvider";
+import { Connector, useConnect, useAccount } from "@starknet-react/core";
+
 
 const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
   return (
@@ -51,6 +54,9 @@ const MenuIcon = () => (
 
 
 const Header = ({ isSignedIn, wallet, ...props }) => {
+
+  const { address, connection, handleConnetWalletBtnClick, contract } = useAppContext();
+
   const [show, setShow] = React.useState(false);
   const toggleMenu = () => setShow(!show);
 
@@ -123,6 +129,22 @@ const Header = ({ isSignedIn, wallet, ...props }) => {
 
           
           <MenuItem isLast>
+          {
+                                    connection ?
+                                        <Button radius={"xl"} onClick={handleConnetWalletBtnClick}>LOGOUT</Button>
+                                        :
+                                        <Button radius={"xl"} color='green' onClick={handleConnetWalletBtnClick}>LOGIN</Button>
+                                }
+                          {/* {
+                connectors.map((connector) => (
+                    <Wallet
+                    src={connector.icon.light!}
+                    name={connector.name}
+                    connector={connector}
+                    alt="alt"
+                />
+                ))
+              }       */}
             {isSignedIn ? (
             <Button
             size="sm"
