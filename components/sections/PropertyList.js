@@ -151,7 +151,7 @@ function PropertyList({ isSignedIn, wallet, contractId }) {
   });
 
 
-  console.log(wallet.accountId)
+  // console.log(wallet.accountId)
 
   // is_available: bool,
   // title: String,

@@ -70,6 +70,14 @@ const Header = ({ isSignedIn, wallet, ...props }) => {
   const signOut = () => {
     wallet.signOut();
   };
+  const handleButtonClick = async () => {
+    if (isSignedIn) {
+      signOut();
+    } else {
+      signIn();
+  };
+
+}
 
   return (
     <Flex
@@ -124,9 +132,11 @@ const Header = ({ isSignedIn, wallet, ...props }) => {
           <MenuItem to="/contacts"> Contact </MenuItem>
           {
               connection ?
-                    <Button radius={"xl"} onClick={handleConnetWalletBtnClick}>LOGOUT</Button>
+                    <Button radius={"xl"}   onClick={address ? handleButtonClick : handleConnetWalletBtnClick}
+                    >LOGOUT</Button>
                     :
-                    <Button radius={"xl"} color='green' onClick={handleConnetWalletBtnClick}>LOGIN</Button>
+                    <Button radius={"xl"} color='green'   onClick={address ? handleButtonClick : handleConnetWalletBtnClick}
+                    >LOGIN</Button>
                         
                                }
 
