@@ -181,7 +181,7 @@ const Header = ({ isSignedIn, wallet, ...props }) => {
             }}
             onClick={signIn}
           >
-            Log in using Near
+        
           </Button>
         )}
           </MenuItem>
