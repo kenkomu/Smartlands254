@@ -181,7 +181,7 @@ const Header = ({ isSignedIn, wallet, ...props }) => {
             }}
             onClick={signIn}
           >
-        
+        SIGN IN
           </Button>
         )}
           </MenuItem>
